@@ -1,5 +1,9 @@
 import os
+import sys
 import pandas as pd
+import requests
+
+
 
 data_Set = {
     'name': ['Jane', 'Julian', 'Fin', 'Jacob'],
@@ -7,15 +11,20 @@ data_Set = {
     
     
 }
+# panda series
+arr = [i+1 for i in range(10)]
+
+ps = pd.Series(arr)
+print(ps[0])
 
 df = pd.DataFrame(data_Set)
 print(df)
 
+ps = pd.Series(arr, index=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'])
 
-ps = pd.Series(arr, index=['a', 'b', 'c'])
+# print(ps)
 
 print(ps['a'])
-
 
 calories = {
     "day1": 420,
@@ -38,19 +47,21 @@ print(df.loc['day2'])
 
 def download_csv(url):
     r = requests.get(url)
-    with open('data.csv', 'wb') as f:
+    with open('black.csv', 'wb') as f:
         f.write(r.content)
+        
 
 
-if not os.path.exists('data.csv'):
+
+if not os.path.exists('black.csv'):
     download_csv(
-        'https://www.sample-videos.com/csv/Sample-Spreadsheet-10-rows.csv')
+        'https://stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip')
 
 
-df = pd.read_csv('data.csv')
-print(df)
+df = pd.read_csv('black.csv', engine='python-fwf'
+                 )
 
-df = pd.read_csv('bands.csv')
+news = pd.DataFrame(df)
 print(df.head())
 
 # Read JSON data
